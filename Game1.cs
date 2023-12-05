@@ -13,9 +13,6 @@ namespace Tower_Builder
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-
         private List<SaveFile> saveFiles;
 
         private bool storagePrompted = false;
@@ -281,7 +278,6 @@ namespace Tower_Builder
                 saveFile.Initialize("Craftimals_Blocks_" + i, "Craftimals_Powers_" + i);
                 this.saveFiles.Add(saveFile);
             }
-            //base.Components.Add(new GamerServicesComponent(this));
         }
 
         protected override void Initialize()
@@ -383,8 +379,6 @@ namespace Tower_Builder
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             if (this.screen < 5)
             {
                 this.LoadMenuContent();
@@ -2186,9 +2180,9 @@ namespace Tower_Builder
                 int i;
                 for (i = 1; i <= 3; i++)
                 {
-                    if (File.Exists("save/" + i + "_powers"))
+                    if (File.Exists("save/Craftimals_Powers_" + i))
                     {
-                        using (StreamReader streamReader = new StreamReader("save/" + i + "_powers"))
+                        using (StreamReader streamReader = new StreamReader("save/Craftimals_Powers_" + i))
                         {
                             //int i;
                             this.saveFiles[i].TouchedSun = bool.Parse(streamReader.ReadLine());
@@ -2211,7 +2205,7 @@ namespace Tower_Builder
 
         private void LoadData()
         {
-            string generalSave = "save/" + loadSlot + "_blocks";
+            string generalSave = "save/Craftimals_Blocks_" + loadSlot;
             if (File.Exists(generalSave))
             {
                 using (StreamReader streamReader = new StreamReader(generalSave))
@@ -2243,8 +2237,8 @@ namespace Tower_Builder
                 Directory.CreateDirectory("save");
             }
 
-            string powerSave = "save/" + loadSlot + "_powers";
-            string blockSave = "save/" + loadSlot + "_blocks";
+            string powerSave = "save/Craftimals_Powers_" + loadSlot;
+            string blockSave = "save/Craftimals_Blocks_" + loadSlot;
 
             using (StreamWriter streamWriter = new StreamWriter(powerSave))
             {
