@@ -926,7 +926,7 @@ namespace Tower_Builder
                             }
                             this.sfxMenuItem.Play();
                         }
-                        if ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && true) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0)) //this.players[0].previousGamePadState.Buttons.A == null
+                        if ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0))
                         {
                             if (this.menuItem == 1)
                             {
@@ -1148,7 +1148,7 @@ namespace Tower_Builder
                         this.sfxMenuItem.Play();
                     }
                 }
-                else if ((this.pauseItem == 1 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && true) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0)) //this.players[0].previousGamePadState.Buttons.A == null
+                else if ((this.pauseItem == 1 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0))
                 {
                     this.gamePaused = false;
                     for (int i = 0; i < this.players.Count; i++)
@@ -1356,14 +1356,14 @@ namespace Tower_Builder
                     this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + this.players[i].currentGamePadState.ThumbSticks.Left.X * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y - this.players[i].currentGamePadState.ThumbSticks.Left.Y * (float)this.blockTexture.Height * this.players[i].EditRadius);
                     this.players[i].Deleting = 1;
                 }
-                else if (true && this.players[i].previousGamePadState.Buttons.B == ButtonState.Pressed) //this.players[i].currentGamePadState.Buttons.B == null
+                else if (this.players[i].currentGamePadState.Buttons.B != null && this.players[i].previousGamePadState.Buttons.B == ButtonState.Pressed)
                 {
                     this.players[i].Deleting = 2;
                     this.blocksToRemove[0] = new List<Block>();
                     this.blocksToRemove[1] = new List<Block>();
                     this.eRectangle = new Rectangle((int)this.editBox[i].X, (int)this.editBox[i].Y, this.blockTexture.Width, this.blockTexture.Height);
                 }
-                else if (this.players[i].Carrying > 0 && true && this.players[i].previousGamePadState.Buttons.X == ButtonState.Released) //this.players[i].currentGamePadState.Buttons.X == null
+                else if (this.players[i].Carrying > 0 && this.players[i].currentGamePadState.Buttons.X != null && this.players[i].previousGamePadState.Buttons.X == ButtonState.Pressed)
                 {
                     this.eRectangle = new Rectangle((int)this.editBox[i].X, (int)this.editBox[i].Y, this.blockTexture.Width, this.blockTexture.Height);
                     if (!this.eRectangle.Intersects(this.solidGround[i]) && !this.eRectangle.Intersects(this.sun[i]))
@@ -1450,7 +1450,7 @@ namespace Tower_Builder
 
         private void UpdateMovement(int p)
         {
-            if ((this.players[p].Jump < this.powers["maxJumps"] && this.players[p].currentGamePadState.Buttons.A == ButtonState.Released && true) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Released)) //this.players[p].previousGamePadState.Buttons.A == null
+            if ((this.players[p].Jump < this.powers["maxJumps"] && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[p].previousGamePadState.Buttons.A == null) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed))
             {
                 this.players[p].Jump++;
                 this.players[p].VelocityUp = this.jumpVelocity;
