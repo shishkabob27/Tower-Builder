@@ -1086,7 +1086,7 @@ namespace Tower_Builder
                 {
                     if (this.pauseSave)
                     {
-                        if (!Global.SaveDevice.IsBusy)
+                        if (true)
                         {
                             if (this.loadSlot == 1)
                             {
@@ -1119,7 +1119,7 @@ namespace Tower_Builder
                 {
                     if (this.pauseSave)
                     {
-                        if (!Global.SaveDevice.IsBusy)
+                        if (true)
                         {
                             if (this.loadSlot == 3)
                             {
@@ -1195,7 +1195,7 @@ namespace Tower_Builder
                 {
                     try
                     {
-                        if (!Global.SaveDevice.IsBusy)
+                        if (true)
                         {
                             this.pauseQuit = (this.pauseHelp = (this.pauseSave = false));
                             this.savedGame = false;
@@ -2082,7 +2082,7 @@ namespace Tower_Builder
                     {
                         this.spriteBatch.Draw(this.editPreviewTexture, new Vector2((float)(rectangle.X + 20), (float)(rectangle.Y + 107)), Color.Purple);
                     }
-                    if (this.savedGame && !Global.SaveDevice.IsBusy)
+                    if (this.savedGame)
                     {
                         Rectangle rectangle3;
                         rectangle3 = new Rectangle(rectangle.X + rectangle.Width - 80, rectangle.Y + rectangle.Height - 2, 80, 45);
@@ -2181,128 +2181,99 @@ namespace Tower_Builder
 
         private void PromptMe()
         {
-            /*
-            this.storagePrompted = true;
-            EasyStorageSettings.SetSupportedLanguages(new Language[]
+            try
             {
-                Language.English
-            });
-            SharedSaveDevice sharedSaveDevice = new SharedSaveDevice();
-            base.Components.Add(sharedSaveDevice);
-            IAsyncSaveDevice sharedSaveDevice2 = sharedSaveDevice;
-            sharedSaveDevice.DeviceSelectorCanceled += delegate (object s, SaveDeviceEventArgs e)
-            {
-                e.Response = SaveDeviceEventResponse.Force;
-            };
-            sharedSaveDevice.DeviceDisconnected += delegate (object s, SaveDeviceEventArgs e)
-            {
-                e.Response = SaveDeviceEventResponse.Force;
-            };
-            sharedSaveDevice.PromptForDevice();
-            sharedSaveDevice.DeviceSelected += delegate (object s, EventArgs e)
-            {
-                Global.SaveDevice = (SaveDevice)s;
-                try
+                int i;
+                for (i = 1; i <= 3; i++)
                 {
-                    int i;
-                    for (i = 1; i <= 3; i++)
+                    if (File.Exists("save/" + i + "_powers"))
                     {
-                        if (Global.SaveDevice.FileExists(Global.containerName, this.saveFiles[i].FilePowers))
+                        using (StreamReader streamReader = new StreamReader("save/" + i + "_powers"))
                         {
-                            Global.SaveDevice.Load(Global.containerName, this.saveFiles[i].FilePowers, delegate (Stream stream)
+                            //int i;
+                            this.saveFiles[i].TouchedSun = bool.Parse(streamReader.ReadLine());
+                            this.saveFiles[i].LeftoverRibbons = int.Parse(streamReader.ReadLine());
+                            int num = int.Parse(streamReader.ReadLine());
+                            for (i = 0; i < num; i++)
                             {
-                                using (StreamReader streamReader = new StreamReader(stream))
-                                {
-                                    int i;
-                                    this.saveFiles[i].TouchedSun = bool.Parse(streamReader.ReadLine());
-                                    this.saveFiles[i].LeftoverRibbons = int.Parse(streamReader.ReadLine());
-                                    int num = int.Parse(streamReader.ReadLine());
-                                    for (i = 0; i < num; i++)
-                                    {
-                                        this.saveFiles[i].TutorialSteps.Add(int.Parse(streamReader.ReadLine()));
-                                    }
-                                    this.saveFiles[i].Update();
-                                }
-                            });
+                                this.saveFiles[i].TutorialSteps.Add(int.Parse(streamReader.ReadLine()));
+                            }
+                            this.saveFiles[i].Update();
                         }
                     }
                 }
-                catch
-                {
-                    this.Components.Remove(sharedSaveDevice);
-                    this.storagePrompted = false;
-                }
-            };
-            */
+            }
+            catch
+            {
+                this.storagePrompted = false;
+            }
         }
 
         private void LoadData()
         {
-            /*
-            if (Global.SaveDevice.FileExists(Global.containerName, this.saveFiles[this.loadSlot].FileBlocks))
+            string generalSave = "save/" + loadSlot + "_blocks";
+            if (File.Exists(generalSave))
             {
-                Global.SaveDevice.Load(Global.containerName, this.saveFiles[this.loadSlot].FileBlocks, delegate (Stream stream)
+                using (StreamReader streamReader = new StreamReader(generalSave))
                 {
-                    using (StreamReader streamReader = new StreamReader(stream))
+                    int num = int.Parse(streamReader.ReadLine());
+                    for (int i = 0; i < num; i++)
                     {
-                        int num = int.Parse(streamReader.ReadLine());
-                        for (int i = 0; i < num; i++)
+                        Vector2 position = new(float.Parse(streamReader.ReadLine(), CultureInfo.InvariantCulture), float.Parse(streamReader.ReadLine(), CultureInfo.InvariantCulture));
+                        Color color = new(int.Parse(streamReader.ReadLine()), int.Parse(streamReader.ReadLine()), int.Parse(streamReader.ReadLine()));
+                        Block block = new Block();
+                        block.Initialize(this.blockTexture, position, this.background[0], color);
+                        this.blocks[0].Add(block);
+                        if (this.players.Count > 1)
                         {
-                            Vector2 position = new(float.Parse(streamReader.ReadLine(), CultureInfo.InvariantCulture), float.Parse(streamReader.ReadLine(), CultureInfo.InvariantCulture));
-                            Color color = new(int.Parse(streamReader.ReadLine()), int.Parse(streamReader.ReadLine()), int.Parse(streamReader.ReadLine()));
-                            Block block = new Block();
-                            block.Initialize(this.blockTexture, position, this.background[0], color);
-                            this.blocks[0].Add(block);
-                            if (this.players.Count > 1)
-                            {
-                                block = new Block();
-                                block.Initialize(this.blockTexture, position, this.background[1], color);
-                                this.blocks[1].Add(block);
-                            }
+                            block = new Block();
+                            block.Initialize(this.blockTexture, position, this.background[1], color);
+                            this.blocks[1].Add(block);
                         }
                     }
-                });
-            }*/
+                }
+            }
         }
 
         private void SaveData()
         {
-            if (Global.SaveDevice.IsReady)
+
+            if (!Directory.Exists("save"))
             {
-                Global.SaveDevice.SaveAsync(Global.containerName, this.saveFiles[this.loadSlot].FilePowers, delegate (Stream stream)
+                Directory.CreateDirectory("save");
+            }
+
+            string powerSave = "save/" + loadSlot + "_powers";
+            string blockSave = "save/" + loadSlot + "_blocks";
+
+            using (StreamWriter streamWriter = new StreamWriter(powerSave))
+            {
+                streamWriter.WriteLine(this.touchedSun);
+                this.saveFiles[this.loadSlot].TouchedSun = this.touchedSun;
+                streamWriter.WriteLine(this.ribbons[0].Count);
+                this.saveFiles[this.loadSlot].LeftoverRibbons = this.ribbons[0].Count;
+                streamWriter.WriteLine(this.tutorials.Count);
+                this.saveFiles[this.loadSlot].TutorialSteps = new List<int>();
+                for (int i = 0; i < this.tutorials.Count; i++)
                 {
-                    using (StreamWriter streamWriter = new StreamWriter(stream))
-                    {
-                        streamWriter.WriteLine(this.touchedSun);
-                        this.saveFiles[this.loadSlot].TouchedSun = this.touchedSun;
-                        streamWriter.WriteLine(this.ribbons[0].Count);
-                        this.saveFiles[this.loadSlot].LeftoverRibbons = this.ribbons[0].Count;
-                        streamWriter.WriteLine(this.tutorials.Count);
-                        this.saveFiles[this.loadSlot].TutorialSteps = new List<int>();
-                        for (int i = 0; i < this.tutorials.Count; i++)
-                        {
-                            streamWriter.WriteLine(this.tutorials[i]);
-                            this.saveFiles[this.loadSlot].TutorialSteps.Add(this.tutorials[i]);
-                        }
-                        this.saveFiles[this.loadSlot].Update();
-                        this.savedGame = true;
-                    }
-                });
-                Global.SaveDevice.SaveAsync(Global.containerName, this.saveFiles[this.loadSlot].FileBlocks, delegate (Stream stream)
+                    streamWriter.WriteLine(this.tutorials[i]);
+                    this.saveFiles[this.loadSlot].TutorialSteps.Add(this.tutorials[i]);
+                }
+                this.saveFiles[this.loadSlot].Update();
+                this.savedGame = true;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter(blockSave))
+            {
+                streamWriter.WriteLine(this.blocks[0].Count);
+                for (int i = 0; i < this.blocks[0].Count; i++)
                 {
-                    using (StreamWriter streamWriter = new StreamWriter(stream))
-                    {
-                        streamWriter.WriteLine(this.blocks[0].Count);
-                        for (int i = 0; i < this.blocks[0].Count; i++)
-                        {
-                            streamWriter.WriteLine(this.blocks[0][i].PositionX.ToString(CultureInfo.InvariantCulture));
-                            streamWriter.WriteLine(this.blocks[0][i].PositionY.ToString(CultureInfo.InvariantCulture));
-                            streamWriter.WriteLine((int)this.blocks[0][i].Color.R);
-                            streamWriter.WriteLine((int)this.blocks[0][i].Color.G);
-                            streamWriter.WriteLine((int)this.blocks[0][i].Color.B);
-                        }
-                    }
-                });
+                    streamWriter.WriteLine(this.blocks[0][i].PositionX.ToString(CultureInfo.InvariantCulture));
+                    streamWriter.WriteLine(this.blocks[0][i].PositionY.ToString(CultureInfo.InvariantCulture));
+                    streamWriter.WriteLine((int)this.blocks[0][i].Color.R);
+                    streamWriter.WriteLine((int)this.blocks[0][i].Color.G);
+                    streamWriter.WriteLine((int)this.blocks[0][i].Color.B);
+                }
             }
         }
     }
