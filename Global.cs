@@ -11,8 +11,6 @@ namespace Tower_Builder
 
     public class Global
     {
-        public static IAsyncSaveDevice SaveDevice; //lets just use a text file
-
         public static string fileName_blocks1 = "Craftimals_Blocks_1";
 
         public static string fileName_powers1 = "Craftimals_Powers_1";

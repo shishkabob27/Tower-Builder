@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using static System.Net.Mime.MediaTypeNames;
 using System.Collections.Generic;
 using System;
 using System.IO;
@@ -263,6 +262,7 @@ namespace Tower_Builder
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
             screenWidth = (this.graphics.PreferredBackBufferWidth = 1280);
             screenHeight = (this.graphics.PreferredBackBufferHeight = 720);
             int num = (int)((float)this.screenWidth - (float)this.screenWidth * 0.9f) / 2;
@@ -794,19 +794,19 @@ namespace Tower_Builder
             soundEffect = base.Content.Load<SoundEffect>("sounds/block4");
             this.sfxBlocks.Add(soundEffect);
             this.sfxBreaks = new List<SoundEffect>();
-            soundEffect = base.Content.Load<SoundEffect>("sounds/break1");
+            //soundEffect = base.Content.Load<SoundEffect>("sounds/break1");
             this.sfxBreaks.Add(soundEffect);
-            soundEffect = base.Content.Load<SoundEffect>("sounds/break2");
+            //soundEffect = base.Content.Load<SoundEffect>("sounds/break2");
             this.sfxBreaks.Add(soundEffect);
-            soundEffect = base.Content.Load<SoundEffect>("sounds/break3");
+            //soundEffect = base.Content.Load<SoundEffect>("sounds/break3");
             this.sfxBreaks.Add(soundEffect);
-            soundEffect = base.Content.Load<SoundEffect>("sounds/break4");
+            //soundEffect = base.Content.Load<SoundEffect>("sounds/break4");
             this.sfxBreaks.Add(soundEffect);
-            this.sfxRibbonBreak = base.Content.Load<SoundEffect>("sounds/glass");
+            //this.sfxRibbonBreak = base.Content.Load<SoundEffect>("sounds/glass");
             this.sfxPickup = base.Content.Load<SoundEffect>("sounds/pickup");
             this.sfxPauseOpen = base.Content.Load<SoundEffect>("sounds/paper1");
             this.sfxPauseClose = base.Content.Load<SoundEffect>("sounds/paper2");
-            this.sfxBurning = base.Content.Load<SoundEffect>("sounds/fire");
+            //this.sfxBurning = base.Content.Load<SoundEffect>("sounds/fire");
             this.musicGameplay = base.Content.Load<Song>("music/gameplay");
             MediaPlayer.Play(this.musicGameplay);
             MediaPlayer.IsRepeating = true;
@@ -854,7 +854,7 @@ namespace Tower_Builder
                 {
                     for (PlayerIndex playerIndex = PlayerIndex.One; playerIndex <= PlayerIndex.Four; playerIndex++)
                     {
-                        if (GamePad.GetState(playerIndex).Buttons.A == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.Start == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.Y == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.X == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed)
+                        if (GamePad.GetState(playerIndex).Buttons.A == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.Start == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.Y == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.X == ButtonState.Pressed || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             Player player = new Player();
                             player.Preset(playerIndex);
@@ -880,7 +880,7 @@ namespace Tower_Builder
                 {
                     if (true) //Global.SaveDevice.IsReady
                     {
-                        if ((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y > 0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y < 0.8)
+                        if (((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y > 0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y < 0.8) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Up) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Up)))
                         {
                             if (this.loadSlot == 1)
                             {
@@ -900,7 +900,7 @@ namespace Tower_Builder
                             }
                             this.sfxMenuItem.Play();
                         }
-                        else if ((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y < -0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y > -0.8)
+                        else if (((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y < -0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y > -0.8) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Down) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Down)))
                         {
                             if (this.loadSlot == 3)
                             {
@@ -920,7 +920,7 @@ namespace Tower_Builder
                             }
                             this.sfxMenuItem.Play();
                         }
-                        if ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0))
+                        if ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                         {
                             if (this.menuItem == 1)
                             {
@@ -966,7 +966,7 @@ namespace Tower_Builder
                                 base.Exit();
                             }
                         }
-                        else if (this.menuItem == 2 && this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0)
+                        else if (this.menuItem == 2 && ((this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape))))
                         {
                             this.loadSlot = 0;
                             this.loadSlotPadding = 0;
@@ -1031,12 +1031,12 @@ namespace Tower_Builder
                         this.sfxGhostChange.Play();
                     }
                 }
-                if (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0)
+                if ((this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                 {
                     this.screen = 5;
                     this.Initialize();
                 }
-                else if (this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0)
+                else if ((this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape)))
                 {
                     this.screen = 2;
                     this.loadSlot = 0;
@@ -1046,7 +1046,7 @@ namespace Tower_Builder
             }
             else if (this.screen == 4 && this.screenPosition.X == 1280f)
             {
-                if (this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0)
+                if ((this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape)))
                 {
                     this.screen = 2;
                     this.sfxMenuScreen.Play();
@@ -1056,6 +1056,7 @@ namespace Tower_Builder
 
         private void UpdateGameplay(GameTime gameTime)
         {
+            /*
             for (int i = 0; i < this.players.Count; i++)
             {
                 if ((false || !GamePad.GetState(this.players[i].Index).IsConnected) && !this.gamePaused) //Guide.IsVisible
@@ -1066,7 +1067,8 @@ namespace Tower_Builder
                     this.savedGame = false;
                 }
             }
-            if (!this.gamePaused && this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0)
+            */
+            if (!this.gamePaused && ((this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape))))
             {
                 this.gamePaused = true;
                 this.pauseItem = 1;
@@ -1444,7 +1446,7 @@ namespace Tower_Builder
 
         private void UpdateMovement(int p)
         {
-            if ((this.players[p].Jump < this.powers["maxJumps"] && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[p].previousGamePadState.Buttons.A == null) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed))
+            if ((this.players[p].Jump < this.powers["maxJumps"] && ((this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[p].previousGamePadState.Buttons.A == null) || this.players[p].currentKeyboardState.IsKeyDown(Keys.Space)) && !this.players[p].previousKeyboardState.IsKeyDown(Keys.Space)) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed))
             {
                 this.players[p].Jump++;
                 this.players[p].VelocityUp = this.jumpVelocity;
@@ -1452,31 +1454,59 @@ namespace Tower_Builder
             }
             if (!this.players[p].Editing && this.players[p].Delay <= 0 && this.players[p].Deleting == 0)
             {
-                if (this.players[p].currentGamePadState.ThumbSticks.Left.X < 0f)
+                if (this.players[p].currentGamePadState.ThumbSticks.Left.X < 0f || this.players[p].currentKeyboardState.IsKeyDown(Keys.A))
                 {
                     if (this.players[p].Position.X + (float)(this.players[p].Width / 2) > (float)(this.players[p].View.Width / 2 - this.players[p].WalkingSpeed * 2) && this.players[p].Position.X + (float)(this.players[p].Width / 2) < (float)(this.players[p].View.Width / 2 + this.players[p].WalkingSpeed * 2) && this.background[p].X < -1)
                     {
-                        this.background[p] = new Rectangle(this.background[p].X - (int)(this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        if (this.players[p].currentKeyboardState.IsKeyDown(Keys.A))
+                        {
+                            this.background[p] = new Rectangle(this.background[p].X - (int)(-1 * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        }
+                        else
+                        {
+                            this.background[p] = new Rectangle(this.background[p].X - (int)(this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        }
                         this.players[p].Scrolling = true;
                     }
                     else
                     {
                         Player player = this.players[p];
-                        player.Position.X = player.Position.X + this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed;
+                        if (this.players[p].currentKeyboardState.IsKeyDown(Keys.A))
+                        {
+                            player.Position.X = player.Position.X + -1 * (float)this.players[p].WalkingSpeed;
+                        }
+                        else
+                        {
+                            player.Position.X = player.Position.X + this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed;
+                        }
                         this.players[p].Scrolling = false;
                     }
                 }
-                else if (this.players[p].currentGamePadState.ThumbSticks.Left.X > 0f)
+                else if (this.players[p].currentGamePadState.ThumbSticks.Left.X > 0f || this.players[p].currentKeyboardState.IsKeyDown(Keys.D))
                 {
                     if (this.players[p].Position.X + (float)(this.players[p].Width / 2) > (float)(this.players[p].View.Width / 2 - this.players[p].WalkingSpeed * 2) && this.players[p].Position.X + (float)(this.players[p].Width / 2) < (float)(this.players[p].View.Width / 2 + this.players[p].WalkingSpeed * 2) && this.background[p].X + this.background[p].Width > this.players[p].View.Width + 1)
                     {
-                        this.background[p] = new Rectangle(this.background[p].X - (int)(this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        if (this.players[p].currentKeyboardState.IsKeyDown(Keys.D))
+                        {
+                            this.background[p] = new Rectangle(this.background[p].X - (int)(1 * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        }
+                        else
+                        {
+                            this.background[p] = new Rectangle(this.background[p].X - (int)(this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed), this.background[p].Y, this.background[p].Width, this.background[p].Height);
+                        }
                         this.players[p].Scrolling = true;
                     }
                     else
                     {
                         Player player2 = this.players[p];
-                        player2.Position.X = player2.Position.X + this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed;
+                        if (this.players[p].currentKeyboardState.IsKeyDown(Keys.D))
+                        {
+                            player2.Position.X = player2.Position.X + 1 * (float)this.players[p].WalkingSpeed;
+                        }
+                        else
+                        {
+                            player2.Position.X = player2.Position.X + this.players[p].currentGamePadState.ThumbSticks.Left.X * (float)this.players[p].WalkingSpeed;
+                        }
                         this.players[p].Scrolling = false;
                     }
                 }
@@ -1700,7 +1730,7 @@ namespace Tower_Builder
                 {
                     this.ribbons[1].Remove(this.ribbons[1][i]);
                 }
-                this.sfxRibbonBreak.Play();
+                //this.sfxRibbonBreak.Play();
                 if (!this.tutorials.Contains(6))
                 {
                     this.tutorials.Add(6);
