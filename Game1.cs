@@ -2119,7 +2119,7 @@ namespace Tower_Builder
                         rectangle4 = new Rectangle(rectangle3.X + 2, rectangle3.Y + 2, rectangle3.Width - 4, rectangle3.Height - 4);
                         this.spriteBatch.Draw(this.pixel, rectangle3, Color.White);
                         this.spriteBatch.Draw(this.pixel, rectangle4, Color.Black);
-                        this.spriteBatch.DrawString(this.tutorialFont, "Saved!", new Vector2((float)(rectangle3.X + 10), (float)(rectangle3.Y + 10)), Color.White);
+                        this.spriteBatch.DrawString(this.tutorialFont, "Saved!", new Vector2((float)(rectangle3.X + 10), (float)(rectangle3.Y)), Color.White);
                     }
                 }
                 else if (this.pauseHelp)
