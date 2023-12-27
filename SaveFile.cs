@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,15 @@ namespace Tower_Builder
             LeftoverRibbons = 20;
             SlotMessage = "Empty";
             TutorialSteps = new List<int>();
+            if (File.Exists("save/" + FilePowers))
+            {
+                using (StreamReader streamReader = new StreamReader("save/" + FilePowers))
+                {
+                    TouchedSun = bool.Parse(streamReader.ReadLine());
+                    LeftoverRibbons = int.Parse(streamReader.ReadLine());
+                }
+                Update();
+            }
         }
 
         public void Update()
