@@ -260,8 +260,7 @@ namespace Tower_Builder
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
- 
+            graphics = new GraphicsDeviceManager(this);   
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             screenWidth = (this.graphics.PreferredBackBufferWidth = 1280);
@@ -283,6 +282,7 @@ namespace Tower_Builder
 
         protected override void Initialize()
         {
+            Window.Title = "Craftimals: Build to the Sun";
             if (this.screen < 5)
             {
                 this.InitializeMenus();
