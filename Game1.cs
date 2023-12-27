@@ -995,7 +995,7 @@ namespace Tower_Builder
                 }
                 for (int i = 0; i < this.players.Count; i++)
                 {
-                    if ((double)this.players[i].currentGamePadState.ThumbSticks.Left.X > 0.8 && (double)this.players[i].previousGamePadState.ThumbSticks.Left.X < 0.8)
+                    if (((double)this.players[i].currentGamePadState.ThumbSticks.Left.X > 0.8 && (double)this.players[i].previousGamePadState.ThumbSticks.Left.X < 0.8) || (this.players[i].currentKeyboardState.IsKeyDown(Keys.Left) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.Left)))
                     {
                         if (this.players[i].AnimalIndex < this.animals.Count - 1)
                         {
@@ -1007,7 +1007,7 @@ namespace Tower_Builder
                         }
                         this.sfxAnimalChange.Play();
                     }
-                    else if ((double)this.players[i].currentGamePadState.ThumbSticks.Left.X < -0.8 && (double)this.players[i].previousGamePadState.ThumbSticks.Left.X > -0.8)
+                    else if (((double)this.players[i].currentGamePadState.ThumbSticks.Left.X < -0.8 && (double)this.players[i].previousGamePadState.ThumbSticks.Left.X > -0.8) || (this.players[i].currentKeyboardState.IsKeyDown(Keys.Right) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.Right)))
                     {
                         if (this.players[i].AnimalIndex > 0)
                         {
@@ -1079,7 +1079,7 @@ namespace Tower_Builder
             }
             else if (this.gamePaused)
             {
-                if ((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y > 0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y < 0.8)
+                if (((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y > 0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y < 0.8) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Up) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Up)))
                 {
                     if (this.pauseSave)
                     {
@@ -1112,7 +1112,7 @@ namespace Tower_Builder
                         this.sfxMenuItem.Play();
                     }
                 }
-                else if ((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y < -0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y > -0.8)
+                else if (((double)this.players[0].currentGamePadState.ThumbSticks.Left.Y < -0.8 && (double)this.players[0].previousGamePadState.ThumbSticks.Left.Y > -0.8)  || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Down) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Down)))
                 {
                     if (this.pauseSave)
                     {
@@ -1145,7 +1145,7 @@ namespace Tower_Builder
                         this.sfxMenuItem.Play();
                     }
                 }
-                else if ((this.pauseItem == 1 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0))
+                else if ((this.pauseItem == 1 && ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == null) || this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter))) || (this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == ButtonState.Released))
                 {
                     this.gamePaused = false;
                     for (int i = 0; i < this.players.Count; i++)
@@ -1156,7 +1156,7 @@ namespace Tower_Builder
                     this.unPauseGame = true;
                     this.sfxPauseClose.Play();
                 }
-                else if (this.pauseItem == 2 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == 0)
+                else if (this.pauseItem == 2 && ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == ButtonState.Released) || this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                 {
                     if (false) //Guide.IsTrialMode
                     {
@@ -1171,11 +1171,11 @@ namespace Tower_Builder
                         this.SaveData();
                     }
                 }
-                else if (this.pauseItem == 3 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == 0)
+                else if (this.pauseItem == 3 && ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == ButtonState.Released) || this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                 {
                     this.pauseHelp = true;
                 }
-                else if (this.pauseItem == 4 && this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == 0)
+                else if (this.pauseItem == 4 && ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == ButtonState.Released) || this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                 {
                     if (this.pauseQuit)
                     {
@@ -1188,7 +1188,7 @@ namespace Tower_Builder
                         this.pauseQuit = true;
                     }
                 }
-                else if (this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == 0)
+                else if ((this.players[0].currentGamePadState.Buttons.B == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.B == ButtonState.Released) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape)))
                 {
                     try
                     {
