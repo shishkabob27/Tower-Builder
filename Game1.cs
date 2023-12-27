@@ -261,6 +261,7 @@ namespace Tower_Builder
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+ 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             screenWidth = (this.graphics.PreferredBackBufferWidth = 1280);
@@ -1814,23 +1815,23 @@ namespace Tower_Builder
                     {
                         this.spriteBatch.Draw(this.editPreviewTexture, new Vector2(805f, (float)(this.safe.Y + 246)), Color.Purple);
                     }
-                    this.spriteBatch.DrawString(this.tutorialFont, "Start a New Game", new Vector2(800f, (float)(this.safe.Y + 100)), Color.Black);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Start a New Game", new Vector2(800f, (float)(this.safe.Y + 90)), Color.Black);
                     if (false) //Guide.IsTrialMode
                     {
                         this.spriteBatch.DrawString(this.tutorialFont, "Buy Full Game", new Vector2(800f, (float)(this.safe.Y + 150)), Color.Black);
                     }
                     else
                     {
-                        this.spriteBatch.DrawString(this.tutorialFont, "Load Game", new Vector2(800f, (float)(this.safe.Y + 150)), Color.Black);
+                        this.spriteBatch.DrawString(this.tutorialFont, "Load Game", new Vector2(800f, (float)(this.safe.Y + 140)), Color.Black);
                         if (this.loadSlot > 0)
                         {
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 180)), Color.Purple);
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 210)), Color.Purple);
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 240)), Color.Purple);
+                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 170)), Color.Purple);
+                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 200)), Color.Purple);
+                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 230)), Color.Purple);
                         }
                     }
-                    this.spriteBatch.DrawString(this.tutorialFont, "More Information", new Vector2(800f, (float)(this.safe.Y + 200 + this.loadSlotPadding)), Color.Black);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Return to Dashboard", new Vector2(800f, (float)(this.safe.Y + 250 + this.loadSlotPadding)), Color.Black);
+                    this.spriteBatch.DrawString(this.tutorialFont, "More Information", new Vector2(800f, (float)(this.safe.Y + 190 + this.loadSlotPadding)), Color.Black);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Return to Dashboard", new Vector2(800f, (float)(this.safe.Y + 240 + this.loadSlotPadding)), Color.Black);
                 }
             }
             else if (this.screen == 3)
@@ -1873,7 +1874,7 @@ namespace Tower_Builder
                     else
                     {
                         this.spriteBatch.Draw(this.buttonA, new Vector2((float)(this.screenWidth / 2 + 200 - this.buttonA.Width - this.arrowLeft.Width * 2), (float)(this.safe.Y + 280)), Color.White);
-                        this.spriteBatch.DrawString(this.tutorialFont, "Player 2 Join!", new Vector2((float)(this.screenWidth / 2 + 200 - this.buttonA.Width / 2) - this.tutorialFont.MeasureString("Player 2 Join!").X / 2f - (float)(this.arrowLeft.Width * 2), (float)(this.safe.Y + 245)), Color.Black);
+                        this.spriteBatch.DrawString(this.tutorialFont, "Player 2 Join!", new Vector2((float)(this.screenWidth / 2 + 200 - this.buttonA.Width / 2) - this.tutorialFont.MeasureString("Player 2 Join!").X / 2f - (float)(this.arrowLeft.Width * 2), (float)(this.safe.Y + 235)), Color.Black);
                     }
                     if (this.touchedSun)
                     {
@@ -2185,7 +2186,7 @@ namespace Tower_Builder
             this.spriteBatch.Draw(this.pixel, this.tutorialFront, Color.White);
             this.spriteBatch.Draw(this.tutorialLeft, new Vector2((float)(this.tutorialBack.X - this.tutorialLeft.Width + 2), (float)(this.tutorialBack.Y - 1)), Color.White);
             this.spriteBatch.Draw(this.tutorialRight, new Vector2((float)(this.tutorialBack.X + this.tutorialBack.Width - 2), (float)(this.tutorialBack.Y - 1)), Color.White);
-            this.spriteBatch.DrawString(this.tutorialFont, txt, new Vector2((float)(this.tutorialBack.X + 5), (float)(this.tutorialBack.Y + 10)), Color.Black);
+            this.spriteBatch.DrawString(this.tutorialFont, txt, new Vector2((float)(this.tutorialBack.X + 5), (float)(this.tutorialBack.Y)), Color.Black);
         }
 
         private void PurchaseGame()
