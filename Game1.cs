@@ -1465,7 +1465,7 @@ namespace Tower_Builder
 
         private void UpdateMovement(int p)
         {
-            if ((this.players[p].Jump < this.powers["maxJumps"] && ((this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[p].previousGamePadState.Buttons.A == null) || this.players[p].currentKeyboardState.IsKeyDown(Keys.Space)) && !this.players[p].previousKeyboardState.IsKeyDown(Keys.Space)) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed))
+            if ((this.players[p].Jump < this.powers["maxJumps"] && ((this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[p].previousGamePadState.Buttons.A == null) || this.players[p].currentKeyboardState.IsKeyDown(Keys.Space)) && !this.players[p].previousKeyboardState.IsKeyDown(Keys.Space)) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentKeyboardState.IsKeyDown(Keys.Space)) || (!this.unPauseGame && this.players[p].Jump == 0 && this.players[p].currentGamePadState.Buttons.A == ButtonState.Pressed))
             {
                 this.players[p].Jump++;
                 this.players[p].VelocityUp = this.jumpVelocity;
