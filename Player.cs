@@ -19,6 +19,10 @@ namespace Tower_Builder
 
         public KeyboardState previousKeyboardState;
 
+        public MouseState currentMouseState;
+
+        public MouseState previousMouseState;
+
         public PlayerIndex Index;
 
         public int AnimalIndex;
@@ -211,6 +215,8 @@ namespace Tower_Builder
             this.currentGamePadState = GamePad.GetState(this.Index);
             this.previousKeyboardState = this.currentKeyboardState;
             this.currentKeyboardState = Keyboard.GetState();
+            this.previousMouseState = this.currentMouseState;
+            this.currentMouseState = Mouse.GetState();
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Texture2D Parachute)

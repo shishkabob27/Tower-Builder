@@ -1296,7 +1296,7 @@ namespace Tower_Builder
                         this.tutorials.Add(4);
                     }
                 }
-                if (this.players[i].currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftShoulder == 0)
+                if (this.players[i].currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftShoulder == ButtonState.Released)
                 {
                     if (this.players[i].HatIndex == 0)
                     {
@@ -1312,7 +1312,7 @@ namespace Tower_Builder
                         this.tutorials.Add(7);
                     }
                 }
-                else if (this.players[i].currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.RightShoulder == 0)
+                else if (this.players[i].currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.RightShoulder == ButtonState.Released)
                 {
                     if (this.players[i].HatIndex == this.powers["hatRange"])
                     {
@@ -1328,7 +1328,7 @@ namespace Tower_Builder
                         this.tutorials.Add(7);
                     }
                 }
-                if (this.powers["editRadius"] == 1 && (this.players[i].Editing || this.players[i].Deleting > 0) && this.players[i].currentGamePadState.Buttons.LeftStick == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftStick == 0)
+                if (this.powers["editRadius"] == 1 && (this.players[i].Editing || this.players[i].Deleting > 0) && this.players[i].currentGamePadState.Buttons.LeftStick == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftStick == ButtonState.Released)
                 {
                     if (this.players[i].EditRadius == 1.8f)
                     {
@@ -1343,24 +1343,55 @@ namespace Tower_Builder
                         this.tutorials.Add(8);
                     }
                 }
-                if (this.players[i].Carrying > 0 && this.players[i].currentGamePadState.Buttons.X == ButtonState.Pressed)
+                if (this.players[i].Carrying > 0 && (this.players[i].currentGamePadState.Buttons.X == ButtonState.Pressed || Mouse.GetState().LeftButton == ButtonState.Pressed))
                 {
-                    this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + this.players[i].currentGamePadState.ThumbSticks.Left.X * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y - this.players[i].currentGamePadState.ThumbSticks.Left.Y * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    if (this.players[i].currentGamePadState.Buttons.X == ButtonState.Pressed)
+                    {
+                        this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + this.players[i].currentGamePadState.ThumbSticks.Left.X * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y - this.players[i].currentGamePadState.ThumbSticks.Left.Y * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    }
+                    else
+                    {
+                        var mousex = (float)this.players[i].currentMouseState.X;
+                        var mousey = (float)this.players[i].currentMouseState.Y;
+                        mousex -= (float)this.players[i].Position.X + 48;
+                        mousey -= (float)this.players[i].Position.Y + 38;
+                        mousex /= 80;
+                        mousey /= 80;
+                        mousex = Clamp(mousex, -1f, 1f);
+                        mousey = Clamp(mousey, -1f, 1f);
+                        this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + mousex * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y + mousey * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    }
                     this.players[i].Editing = true;
                 }
-                else if (this.players[i].currentGamePadState.Buttons.B == ButtonState.Pressed)
+                else if (this.players[i].currentGamePadState.Buttons.B == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + this.players[i].currentGamePadState.ThumbSticks.Left.X * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y - this.players[i].currentGamePadState.ThumbSticks.Left.Y * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    if (this.players[i].currentGamePadState.Buttons.B == ButtonState.Pressed)
+                    {
+                        this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + this.players[i].currentGamePadState.ThumbSticks.Left.X * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y - this.players[i].currentGamePadState.ThumbSticks.Left.Y * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    }
+                    else
+                    {
+                        var mousex = (float)this.players[i].currentMouseState.X;
+                        var mousey = (float)this.players[i].currentMouseState.Y;
+                        mousex -= (float)this.players[i].Position.X + 48;
+                        mousey -= (float)this.players[i].Position.Y + 38;
+                        mousex /= 80;
+                        mousey /= 80;
+                        mousex = Clamp(mousex, -1f, 1f);
+                        mousey = Clamp(mousey, -1f, 1f);
+                        this.editBox[i] = new Vector2((float)(this.players[i].HitBox.X + this.players[i].HitBox.Width / 2 - this.blockTexture.Width / 2) + mousex * (float)this.blockTexture.Width * this.players[i].EditRadius, (float)this.players[i].HitBox.Y + mousey * (float)this.blockTexture.Height * this.players[i].EditRadius);
+                    }
                     this.players[i].Deleting = 1;
                 }
-                else if (this.players[i].currentGamePadState.Buttons.B != null && this.players[i].previousGamePadState.Buttons.B == ButtonState.Pressed)
+                else if ((this.players[i].currentGamePadState.Buttons.B != null && this.players[i].previousGamePadState.Buttons.B == ButtonState.Pressed) || (this.players[i].currentMouseState.RightButton == ButtonState.Released && this.players[i].previousMouseState.RightButton == ButtonState.Pressed))
                 {
                     this.players[i].Deleting = 2;
                     this.blocksToRemove[0] = new List<Block>();
                     this.blocksToRemove[1] = new List<Block>();
                     this.eRectangle = new Rectangle((int)this.editBox[i].X, (int)this.editBox[i].Y, this.blockTexture.Width, this.blockTexture.Height);
+
                 }
-                else if (this.players[i].Carrying > 0 && this.players[i].currentGamePadState.Buttons.X != null && this.players[i].previousGamePadState.Buttons.X == ButtonState.Pressed)
+                else if (this.players[i].Carrying > 0 && ((this.players[i].currentGamePadState.Buttons.X != null && this.players[i].previousGamePadState.Buttons.X == ButtonState.Pressed) || (this.players[i].currentMouseState.LeftButton == ButtonState.Released && this.players[i].previousMouseState.LeftButton == ButtonState.Pressed)))
                 {
                     this.eRectangle = new Rectangle((int)this.editBox[i].X, (int)this.editBox[i].Y, this.blockTexture.Width, this.blockTexture.Height);
                     if (!this.eRectangle.Intersects(this.solidGround[i]) && !this.eRectangle.Intersects(this.sun[i]))
@@ -1443,6 +1474,13 @@ namespace Tower_Builder
                 this.players[i].Update();
                 goto IL_14D4;
             }
+        }
+
+        public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>
+        {
+            if (value.CompareTo(min) < 0) return min;
+            if (value.CompareTo(max) > 0) return max;
+            return value;
         }
 
         private void UpdateMovement(int p)
@@ -1644,7 +1682,7 @@ namespace Tower_Builder
                 for (int i = 0; i < this.blocks[p].Count; i++)
                 {
                     this.bRectangle = new Rectangle((int)this.blocks[p][i].Position.X, (int)this.blocks[p][i].Position.Y, this.blockTexture.Width, this.blockTexture.Height);
-                    if (this.bRectangle.Intersects(this.eRectangle) && (this.players[p].currentGamePadState.ThumbSticks.Left.X != 0f || this.players[p].currentGamePadState.ThumbSticks.Left.Y != 0f))
+                    if (this.bRectangle.Intersects(this.eRectangle)) //&& (this.players[p].currentGamePadState.ThumbSticks.Left.X != 0f || this.players[p].currentGamePadState.ThumbSticks.Left.Y != 0f))
                     {
                         this.blocksToRemove[0].Add(this.blocks[0][i]);
                         if (this.players.Count > 1)
