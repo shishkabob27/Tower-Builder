@@ -936,11 +936,7 @@ namespace Tower_Builder
                             }
                             else if (this.menuItem == 2)
                             {
-                                if (this.menuItem == 2 && false) // Guide.IsTrialMode
-                                {
-                                    this.PurchaseGame();
-                                }
-                                else if (this.loadSlot == 0)
+                                if (this.loadSlot == 0)
                                 {
                                     this.loadSlot = 1;
                                     this.loadSlotPadding = 70;
@@ -1158,11 +1154,7 @@ namespace Tower_Builder
                 }
                 else if (this.pauseItem == 2 && ((this.players[0].currentGamePadState.Buttons.A == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.A == ButtonState.Released) || this.players[0].currentKeyboardState.IsKeyDown(Keys.Enter) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Enter)))
                 {
-                    if (false) //Guide.IsTrialMode
-                    {
-                        this.PurchaseGame();
-                    }
-                    else if (!this.pauseSave)
+                    if (!this.pauseSave)
                     {
                         this.pauseSave = true;
                     }
@@ -1869,7 +1861,7 @@ namespace Tower_Builder
                         }
                     }
                     this.spriteBatch.DrawString(this.tutorialFont, "More Information", new Vector2(800f, (float)(this.safe.Y + 190 + this.loadSlotPadding)), Color.Black);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Return to Dashboard", new Vector2(800f, (float)(this.safe.Y + 240 + this.loadSlotPadding)), Color.Black);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Return to Desktop", new Vector2(800f, (float)(this.safe.Y + 240 + this.loadSlotPadding)), Color.Black);
                 }
             }
             else if (this.screen == 3)
@@ -2226,22 +2218,7 @@ namespace Tower_Builder
             this.spriteBatch.Draw(this.tutorialRight, new Vector2((float)(this.tutorialBack.X + this.tutorialBack.Width - 2), (float)(this.tutorialBack.Y - 1)), Color.White);
             this.spriteBatch.DrawString(this.tutorialFont, txt, new Vector2((float)(this.tutorialBack.X + 5), (float)(this.tutorialBack.Y)), Color.Black);
         }
-
-        private void PurchaseGame()
-        {
-            /*
-            SignedInGamer signedInGamer = Gamer.SignedInGamers[this.players[0].Index];
-            if (signedInGamer != null && signedInGamer.Privileges.AllowPurchaseContent)
-            {
-                Guide.ShowMarketplace(this.players[0].Index);
-            }
-            else
-            {
-                Guide.ShowSignIn(1, true);
-            }
-            */
-        }
-
+        
         private void PromptMe()
         {
             try
