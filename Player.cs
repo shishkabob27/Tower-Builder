@@ -138,6 +138,14 @@ namespace Tower_Builder
             {
                 this.Sprite = this.SpriteLeft;
             }
+            if (this.currentKeyboardState.IsKeyDown(Keys.D))
+            {
+                this.Sprite = this.SpriteRight;
+            }
+            else if (this.currentKeyboardState.IsKeyDown(Keys.A))
+            {
+                this.Sprite = this.SpriteLeft;
+            }
             if (this.VelocityDown > 1)
             {
                 this.AirTime++;
@@ -146,7 +154,7 @@ namespace Tower_Builder
             {
                 this.AirTime = 0;
             }
-            if ((double)Math.Abs(this.currentGamePadState.ThumbSticks.Left.X) > 0.15 && !this.Editing && this.Deleting == 0 && this.Delay < 1 && this.Jump == 0 && this.VelocityDown < 1 && !this.Ghost)
+            if ((((double)Math.Abs(this.currentGamePadState.ThumbSticks.Left.X) > 0.15) || (this.currentKeyboardState.IsKeyDown(Keys.A) || this.currentKeyboardState.IsKeyDown(Keys.D))) && !this.Editing && this.Deleting == 0 && this.Delay < 1 && this.Jump == 0 && this.VelocityDown < 1 && !this.Ghost)
             {
                 if (this.rotationUp)
                 {
