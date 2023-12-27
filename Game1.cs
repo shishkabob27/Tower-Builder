@@ -1266,7 +1266,7 @@ namespace Tower_Builder
                 i++;
                 continue;
             IL_42F:
-                if (this.players[i].Carrying > 0 && (double)this.players[i].currentGamePadState.Triggers.Left > 0.1 && (double)this.players[i].previousGamePadState.Triggers.Left <= 0.1)
+                if (this.players[i].Carrying > 0 && (((double)this.players[i].currentGamePadState.Triggers.Left > 0.1 && (double)this.players[i].previousGamePadState.Triggers.Left <= 0.1) || (this.players[i].currentKeyboardState.IsKeyDown(Keys.Q) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.Q))))
                 {
                     if (this.players[i].ColorIndex == 0)
                     {
@@ -1281,7 +1281,7 @@ namespace Tower_Builder
                         this.tutorials.Add(4);
                     }
                 }
-                else if (this.players[i].Carrying > 0 && (double)this.players[i].currentGamePadState.Triggers.Right > 0.1 && (double)this.players[i].previousGamePadState.Triggers.Right <= 0.1)
+                else if (this.players[i].Carrying > 0 && (((double)this.players[i].currentGamePadState.Triggers.Right > 0.1 && (double)this.players[i].previousGamePadState.Triggers.Right <= 0.1 || (this.players[i].currentKeyboardState.IsKeyDown(Keys.E) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.E)))))
                 {
                     if (this.players[i].ColorIndex == this.powers["colorRange"])
                     {
@@ -1296,7 +1296,7 @@ namespace Tower_Builder
                         this.tutorials.Add(4);
                     }
                 }
-                if (this.players[i].currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftShoulder == ButtonState.Released)
+                if ((this.players[i].currentGamePadState.Buttons.LeftShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.LeftShoulder == ButtonState.Released) || (this.players[i].currentKeyboardState.IsKeyDown(Keys.R) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.R)))
                 {
                     if (this.players[i].HatIndex == 0)
                     {
@@ -1312,7 +1312,7 @@ namespace Tower_Builder
                         this.tutorials.Add(7);
                     }
                 }
-                else if (this.players[i].currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.RightShoulder == ButtonState.Released)
+                else if ((this.players[i].currentGamePadState.Buttons.RightShoulder == ButtonState.Pressed && this.players[i].previousGamePadState.Buttons.RightShoulder == ButtonState.Released) || (this.players[i].currentKeyboardState.IsKeyDown(Keys.T) && !this.players[i].previousKeyboardState.IsKeyDown(Keys.T)))
                 {
                     if (this.players[i].HatIndex == this.powers["hatRange"])
                     {
