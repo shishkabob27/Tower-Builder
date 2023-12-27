@@ -2208,7 +2208,7 @@ namespace Tower_Builder
                             this.saveFiles[i].TouchedSun = bool.Parse(streamReader.ReadLine());
                             this.saveFiles[i].LeftoverRibbons = int.Parse(streamReader.ReadLine());
                             int num = int.Parse(streamReader.ReadLine());
-                            for (i = 0; i < num; i++)
+                            for (i = 1; i < num; i++)
                             {
                                 this.saveFiles[i].TutorialSteps.Add(int.Parse(streamReader.ReadLine()));
                             }
