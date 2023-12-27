@@ -33,8 +33,12 @@ namespace Tower_Builder
             {
                 using (StreamReader streamReader = new StreamReader("save/" + FilePowers))
                 {
-                    TouchedSun = bool.Parse(streamReader.ReadLine());
-                    LeftoverRibbons = int.Parse(streamReader.ReadLine());
+                    try
+                    {
+                        TouchedSun = bool.Parse(streamReader.ReadLine());
+                        LeftoverRibbons = int.Parse(streamReader.ReadLine());
+                    }
+                    catch { }
                 }
                 Update();
             }
