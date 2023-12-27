@@ -2110,17 +2110,17 @@ namespace Tower_Builder
                 {
                     this.spriteBatch.Draw(this.editPreviewTexture, new Vector2((float)(this.pauseFront.X + 20), (float)(this.pauseFront.Y + 167)), Color.Cyan);
                 }
-                this.spriteBatch.DrawString(this.tutorialFont, "Continue", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 10)), Color.White);
+                this.spriteBatch.DrawString(this.tutorialFont, "Continue", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y)), Color.White);
                 if (false) //Guide.IsTrialMode
                 {
                     this.spriteBatch.DrawString(this.tutorialFont, "Buy Full Game to Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 60)), Color.White);
                 }
                 else
                 {
-                    this.spriteBatch.DrawString(this.tutorialFont, "Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 60)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 50)), Color.White);
                 }
-                this.spriteBatch.DrawString(this.tutorialFont, "Help", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 110)), Color.White);
-                this.spriteBatch.DrawString(this.tutorialFont, "Quit to Menu", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 160)), Color.White);
+                this.spriteBatch.DrawString(this.tutorialFont, "Help", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 100)), Color.White);
+                this.spriteBatch.DrawString(this.tutorialFont, "Quit to Menu", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 150)), Color.White);
                 if (this.pauseSave)
                 {
                     Rectangle rectangle;
@@ -2129,10 +2129,10 @@ namespace Tower_Builder
                     rectangle2 = new Rectangle(rectangle.X + 2, rectangle.Y + 2, rectangle.Width - 4, rectangle.Height - 4);
                     this.spriteBatch.Draw(this.pixel, rectangle, Color.White);
                     this.spriteBatch.Draw(this.pixel, rectangle2, Color.Black);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Choose a save file:", new Vector2((float)(rectangle.X + 10), (float)(rectangle.Y + 10)), Color.White);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 40)), Color.White);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 70)), Color.White);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 100)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Choose a save file:", new Vector2((float)(rectangle.X + 10), (float)(rectangle.Y)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 30)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 60)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2((float)(rectangle.X + 50), (float)(rectangle.Y + 90)), Color.White);
                     if (this.loadSlot <= 1)
                     {
                         this.spriteBatch.Draw(this.editPreviewTexture, new Vector2((float)(rectangle.X + 20), (float)(rectangle.Y + 47)), Color.Purple);
@@ -2206,9 +2206,9 @@ namespace Tower_Builder
                     rectangle8 = new Rectangle(rectangle7.X + 2, rectangle7.Y + 2, rectangle7.Width - 4, rectangle7.Height - 4);
                     this.spriteBatch.Draw(this.pixel, rectangle7, Color.White);
                     this.spriteBatch.Draw(this.pixel, rectangle8, Color.Black);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Make sure to save your game!", new Vector2((float)(rectangle7.X + 10), (float)(rectangle7.Y + 10)), Color.White);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Do you really want to quit?", new Vector2((float)(rectangle7.X + 10), (float)(rectangle7.Y + 40)), Color.White);
-                    this.spriteBatch.DrawString(this.tutorialFont, "Yes         No", new Vector2((float)(rectangle7.X + 190), (float)(rectangle7.Y + 80)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Make sure to save your game!", new Vector2((float)(rectangle7.X + 10), (float)(rectangle7.Y)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Do you really want to quit?", new Vector2((float)(rectangle7.X + 10), (float)(rectangle7.Y + 30)), Color.White);
+                    this.spriteBatch.DrawString(this.tutorialFont, "Yes         No", new Vector2((float)(rectangle7.X + 190), (float)(rectangle7.Y + 70)), Color.White);
                     this.spriteBatch.Draw(this.buttonA, new Vector2((float)(rectangle7.X + 150), (float)(rectangle7.Y + 77)), default(Rectangle?), Color.White, 0f, Vector2.Zero, 0.75f, 0, 0f);
                     this.spriteBatch.Draw(this.buttonB, new Vector2((float)(rectangle7.X + 235), (float)(rectangle7.Y + 77)), default(Rectangle?), Color.White, 0f, Vector2.Zero, 0.75f, 0, 0f);
                 }
