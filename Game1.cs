@@ -1053,18 +1053,6 @@ namespace Tower_Builder
 
         private void UpdateGameplay(GameTime gameTime)
         {
-            /*
-            for (int i = 0; i < this.players.Count; i++)
-            {
-                if ((false || !GamePad.GetState(this.players[i].Index).IsConnected) && !this.gamePaused) //Guide.IsVisible
-                {
-                    this.gamePaused = true;
-                    this.pauseItem = 1;
-                    this.pauseQuit = (this.pauseHelp = (this.pauseSave = false));
-                    this.savedGame = false;
-                }
-            }
-            */
             if (!this.gamePaused && ((this.players[0].currentGamePadState.Buttons.Start == ButtonState.Pressed && this.players[0].previousGamePadState.Buttons.Start == 0) || (this.players[0].currentKeyboardState.IsKeyDown(Keys.Escape) && !this.players[0].previousKeyboardState.IsKeyDown(Keys.Escape))))
             {
                 this.gamePaused = true;
@@ -1846,19 +1834,12 @@ namespace Tower_Builder
                         this.spriteBatch.Draw(this.editPreviewTexture, new Vector2(805f, (float)(this.safe.Y + 246)), Color.Purple);
                     }
                     this.spriteBatch.DrawString(this.tutorialFont, "Start a New Game", new Vector2(800f, (float)(this.safe.Y + 90)), Color.Black);
-                    if (false) //Guide.IsTrialMode
+                    this.spriteBatch.DrawString(this.tutorialFont, "Load Game", new Vector2(800f, (float)(this.safe.Y + 140)), Color.Black);
+                    if (this.loadSlot > 0)
                     {
-                        this.spriteBatch.DrawString(this.tutorialFont, "Buy Full Game", new Vector2(800f, (float)(this.safe.Y + 150)), Color.Black);
-                    }
-                    else
-                    {
-                        this.spriteBatch.DrawString(this.tutorialFont, "Load Game", new Vector2(800f, (float)(this.safe.Y + 140)), Color.Black);
-                        if (this.loadSlot > 0)
-                        {
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 170)), Color.Purple);
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 200)), Color.Purple);
-                            this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 230)), Color.Purple);
-                        }
+                        this.spriteBatch.DrawString(this.tutorialFont, "Slot 1: " + this.saveFiles[1].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 170)), Color.Purple);
+                        this.spriteBatch.DrawString(this.tutorialFont, "Slot 2: " + this.saveFiles[2].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 200)), Color.Purple);
+                        this.spriteBatch.DrawString(this.tutorialFont, "Slot 3: " + this.saveFiles[3].SlotMessage, new Vector2(830f, (float)(this.safe.Y + 230)), Color.Purple);
                     }
                     this.spriteBatch.DrawString(this.tutorialFont, "More Information", new Vector2(800f, (float)(this.safe.Y + 190 + this.loadSlotPadding)), Color.Black);
                     this.spriteBatch.DrawString(this.tutorialFont, "Return to Desktop", new Vector2(800f, (float)(this.safe.Y + 240 + this.loadSlotPadding)), Color.Black);
@@ -2103,14 +2084,7 @@ namespace Tower_Builder
                     this.spriteBatch.Draw(this.editPreviewTexture, new Vector2((float)(this.pauseFront.X + 20), (float)(this.pauseFront.Y + 167)), Color.Cyan);
                 }
                 this.spriteBatch.DrawString(this.tutorialFont, "Continue", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y)), Color.White);
-                if (false) //Guide.IsTrialMode
-                {
-                    this.spriteBatch.DrawString(this.tutorialFont, "Buy Full Game to Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 60)), Color.White);
-                }
-                else
-                {
-                    this.spriteBatch.DrawString(this.tutorialFont, "Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 50)), Color.White);
-                }
+                this.spriteBatch.DrawString(this.tutorialFont, "Save", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 50)), Color.White);
                 this.spriteBatch.DrawString(this.tutorialFont, "Help", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 100)), Color.White);
                 this.spriteBatch.DrawString(this.tutorialFont, "Quit to Menu", new Vector2((float)(this.pauseFront.X + 50), (float)(this.pauseFront.Y + 150)), Color.White);
                 if (this.pauseSave)
